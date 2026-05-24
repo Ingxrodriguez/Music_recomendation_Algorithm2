@@ -1,0 +1,84 @@
+1. Which insights did you gain from your EDA? Were any columns
+highly correlated?
+
+My EDA surfaced a few clear patterns. The dataset is genre-imbalanced — pop, country, and blues dominate while hip hop is underrepresented. Looking at correlations, the strongest pair was len ↔ obscene at ~0.44: longer songs tend to score higher on obscene/lifestyle content, a pattern likely driven by hip hop tracks being both verbose and explicit. I also saw meaningful negative correlations — obscene trends opposite to sadness and world/life (explicit songs and emotional songs tell different stories), and len ↔ age is negative, suggesting newer songs have longer lyrics.
+Crucially, no feature pair exceeded |r| > 0.5, so there were no strongly correlated columns and I did not need to drop features on statistical grounds alone. The columns I did drop — family/spiritual and feelings — were removed during preprocessing for conceptual redundancy, since they measure themes already captured by family/gospel, sadness, and romantic. No need to tell the algorithm the same thing twice.
+
+
+2. How did you determine which columns to drop or keep? If your EDA
+informed this process, explain which insights you used to determine
+which columns were not needed.
+
+I dropped columns for three reasons. I dropped lyrics because it's raw text and KMeans can't use it, and topic because it's a categorical label that would leak cluster structure into an unsupervised task. I dropped family/spiritual and feelings because they carry the same information already captured by family/gospel, sadness, and romantic — no need to tell the algorithm the same thing twice. 
+
+3. What was the optimal number of clusters in your cluster model?
+Explain how you determined this value.
+
+I used the elbow method testing k=2 to k=15. The plot showed a general bend somewhere between k=7 and k=10, but it wasn't clear enough to pick a definitive value. So I applied the Silhouette score to get a sharper answer — it measures how well each song fits its own cluster versus neighboring clusters. Based on the Silhouette score peaking at k=10, I decided that was the optimal number of clusters.
+
+
+4. Take a look at the respective songs that fell into your clusters.Describe these clusters in human terms to the best of your abilityusing the columns in your dataset (for example high-gospel songs,low-gospel songs, etc). Feel free to listen to these songs as well toget a sense of what nuance your algorithm picked up on.
+
+
+Cluster,Dominant ,FeatureHuman Description
+0,obscene (0.457),Hedonistic & explicit — money, lifestyle, party culture
+1,shake the audience (0.182),Provocative & energetic songs built to hype and excite
+2,violence (0.432),Dark & aggressive — conflict, danger, street narratives
+3,music (0.412),Meta-music songs literally about music and musicians
+4,family/gospel (0.196),Spiritual & faith-driven gospel, hymns, family values
+5,sadness (0.431),Pure melancholy breakups, loss, grief
+6,dating (0.234) sadness (0.123),Heartbreak — romantic pursuit that went wrong
+7,world/life (0.428),Philosophical — big picture reflections on life and existence
+8,night/time (0.398),Nocturnal — late-night scenes, after-dark vibes
+9,romantic (0.395),Love songs — direct expressions of affection and devotion
+
+5. Take a look at the clusters that your algorithm assigned to your test
+samples. Based on these clusters, which songs would you
+recommend to this user?
+
+The algorithm assigned the 10 user songs across six clusters:
+
+Song → Cluster
+immune (Godsmack) → Cluster 1 — Provocative & energetic
+second chance (Dennis Brown) → Cluster 8 — Nocturnal / after-dark
+sister luck (The Black Crowes) → Cluster 2 — Dark & aggressive
+your cheating heart (Jerry Lee Lewis) → Cluster 6 — Heartbreak
+eso beso (Paul Anka) → Cluster 9 — Romantic / love songs
+silencio (Noro Morales) → Cluster 2 — Dark & aggressive
+pistol grip pump (Rage Against The Machine) → Cluster 8 — Nocturnal / after-dark
+railway and gun (Taste) → Cluster 5 — Pure melancholy
+messin' with my mind (Randy Travis) → Cluster 8 — Nocturnal / after-dark
+playing god (Paramore) → Cluster 2 — Dark & aggressive
+
+Two clusters dominate: Cluster 2 (3 songs) and Cluster 8 (3 songs). Together they
+account for 60% of the user's listening history, which tells us this person gravitates
+toward intense, moody music — either dark/conflict-driven lyrics (Cluster 2) or
+late-night atmospheric songs (Cluster 8). The remaining songs scattered across
+Clusters 1, 5, 6, and 9 are secondary preferences.
+
+Given that profile, my prioritized recommendations are:
+
+TOP PICKS — from Cluster 2 (Dark & aggressive, the user's strongest cluster):
+→ "Apache Tears" by Johnny Cash (country)
+→ "To Hell with the Devil" by Stryper (rock)
+→ "Deja Voodoo" by Kenny Wayne Shepherd (blues)
+→ "Blundertown" by The Birthday Party (blues)
+→ "Moral Kiosk" by R.E.M. (pop)
+
+STRONG PICKS — from Cluster 8 (Nocturnal / after-dark, tied for strongest cluster):
+→ "Oh Love" by Green Day (rock)
+→ "She's Waiting" by Eric Clapton (blues)
+→ "Level" by The Raconteurs (blues)
+→ "Home Grown" by Herbs (reggae)
+→ "London" by The Smiths (rock)
+
+SECONDARY PICKS — from Cluster 5 (Melancholy, where "Railway and Gun" landed):
+→ "Take These Chains from My Heart" by Hank Williams (country)
+→ "Dancing with Tears in My Eyes" by Ultravox (pop)
+→ "Angel of the Morning" by Juice Newton (country)
+
+I would not lead with Cluster 9 (Romantic) or Cluster 6 (Heartbreak) recommendations
+since only one user song each fell into those clusters — they represent edge tastes, not
+the core of this listener's profile. The algorithm shows a user who prefers dark,
+aggressive, or nocturnal lyrical themes regardless of genre, which is exactly the kind
+of cross-genre insight KMeans was designed to surface.
