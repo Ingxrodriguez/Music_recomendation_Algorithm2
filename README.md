@@ -71,11 +71,20 @@ Genres do not define the clusters directly — but they show up naturally inside
 
 I tested the algorithm on 10 user songs and here is what happened:
 
-- 🎵 **"Eso Beso"** by Paul Anka → Romantic cluster ✅
-- 🎵 **"Your Cheating Heart"** by Jerry Lee Lewis → Dating cluster ✅
-- 🎵 **"Railway and Gun"** by Taste → Melancholic cluster ✅
+🎵 "immune" by Godsmack → Dark & Aggressive cluster
+🎵 "second chance" by Dennis Brown → Nocturnal cluster
+🎵 "sister luck" by The Black Crowes → Violent cluster
+🎵 "your cheating heart" by Jerry Lee Lewis → Dating cluster ✅
+🎵 "eso beso" by Paul Anka → Romantic cluster ✅
+🎵 "silencio" by Noro Morales → Violent cluster
+🎵 "pistol grip pump" by Rage Against the Machine → Explicit cluster
+🎵 "railway and gun" by Taste → Melancholic cluster ✅
+🎵 "messin' with my mind" by Randy Travis → Nocturnal cluster
+🎵 "playing god" by Paramore → Violent cluster
 
-But the most interesting result? Cluster 8 grouped **Dennis Brown (reggae)**, **Rage Against the Machine (rock)**, and **Randy Travis (country)** together. Three completely different genres — same lyrical energy. That is the beauty of unsupervised learning. It finds patterns that are not obvious to the human eye.
+What Surprised Me
+Cluster 8 grouped Dennis Brown (reggae) and Randy Travis (country) together. Two completely different genres — same lyrical energy. That is the beauty of unsupervised learning. It finds patterns that are not obvious to the human eye.
+The algorithm also correctly sent "Your Cheating Heart" to the Dating cluster and "Eso Beso" to the Romantic cluster — without ever being told what those songs were about. It just read the numbers and figured it out.
 
 ---
 
