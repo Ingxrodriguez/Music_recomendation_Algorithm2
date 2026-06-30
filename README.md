@@ -16,11 +16,11 @@ As a data scientist at a music startup that just secured its Series B, I was tas
 
 ## What I Found
 
-The data tells an interesting story. Hip hop stands out immediately — it scores way higher on obscene content than any other genre, and this pattern holds across all time periods. Modern songs in general have gotten more explicit over the decades, especially pop which has changed a lot since the 1950s.
+The data tells an interesting story. Hip hop stands out immediately it scores way higher on obscene content than any other genre, and this pattern holds across all time periods. Modern songs in general have gotten more explicit over the decades, especially pop which has changed a lot since the 1950s.
 
 I also noticed that features like `romantic`, `violence`, and `sadness` rarely overlap. Songs tend to belong to one emotional theme, not many. A sad song is rarely explicit. A romantic song is rarely violent. Music is surprisingly consistent in its feelings.
 
-So my hypothesis was simple — **group songs by how they feel, not what they are.**
+So my hypothesis was simple **group songs by how they feel, not what they are.**
 
 ---
 
